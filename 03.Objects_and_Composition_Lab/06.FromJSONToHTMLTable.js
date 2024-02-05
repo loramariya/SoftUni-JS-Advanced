@@ -4,30 +4,37 @@ function jsonToHtmlTable(json) {
     let firstObj = arr[0];
     output += '<tr>';
     for (const key in firstObj) {
-        output += `<th>${key}</th>`;
+        output += `<th>${escapeHtml(key)}</th>`;
     }
     output += '</tr>\n';
 
     for (const obj of arr) {
         output += '<tr>';
         for (const key in obj) {
-            output += `<td>${obj[key]}</td>`
+            output += `<td>${escapeHtml(obj[key].toString())}</td>`
         }
         output += '</tr>\n';
     }
 
     output += '</table>';
 
-    console.log(escapeHtml(output));
-
-    function escapeHtml(arr) { 
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'}
-    };
+    function escapeHtml(text) {
+        return text.replace(/[&<>"'\/]/g, (result) => {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+                "/": '&#x2F;'
+            };
+            if (map[result]) {
+                return map[result];
+            }
+            return result;
+        })
+    }
+    return output;
 };
 
 `[{"Name":"Pesho",
