@@ -12,7 +12,7 @@ Implement exam solution
    [ ] Edit
    [ ] Delete
 [ ] Implement views
-   [ ] Home page
+  [X] Home page
    [ ] Catalog
    [ ] Login
    [ ] Register
